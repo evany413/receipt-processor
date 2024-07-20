@@ -19,7 +19,8 @@ func RunGinImpl() {
 func ginProcessReceipt(c *gin.Context) {
 	var receipt Receipt
 	if err := c.ShouldBindJSON(&receipt); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		// c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		c.JSON(http.StatusBadRequest, gin.H{"error": "The receipt is invalid"})
 		return
 	}
 	id := uuid.NewString()

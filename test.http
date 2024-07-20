@@ -28,4 +28,4 @@ Content-Type: application/json
 
 
 ###
-GET http://127.0.0.1:8080/receipts/667a-4a8b-96f4-84fb6fb71288/points
+GET http://127.0.0.1:8080/receipts/d382907d-6442-466e-b917-d09d62adf177/points

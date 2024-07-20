@@ -27,7 +27,8 @@ func naiveProcessReceipt(w http.ResponseWriter, r *http.Request) {
 	var receipt Receipt
 	err := json.NewDecoder(r.Body).Decode(&receipt)
 	if err != nil {
-		http.Error(w, err.Error(), http.StatusBadRequest)
+		// http.Error(w, err.Error(), http.StatusBadRequest)
+		http.Error(w, "The receipt is invalid", http.StatusBadRequest)
 		return
 	}
 	defer r.Body.Close()
@@ -60,7 +61,8 @@ func naiveGetPoints(w http.ResponseWriter, r *http.Request) {
 	lock.Unlock()
 
 	if !exists {
-		http.NotFound(w, r)
+		// http.NotFound(w, r)
+		http.Error(w, "No receipt found for that id", http.StatusNotFound)
 		return
 	}
 
