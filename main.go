@@ -10,7 +10,7 @@ import (
 
 func main() {
 	if len(os.Args) < 2 {
-		fmt.Println("Usage: go run main.go [naive|gin]")
+		fmt.Println("Usage: ./receipt-processor [naive|gin]")
 		os.Exit(1)
 	}
 

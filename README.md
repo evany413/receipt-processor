@@ -30,8 +30,9 @@ To run the server, you can choose between two implementations (naive or gin) by 
 
 ```bash
 go build
-go run receipt-processor.go naive # For the basic implementation without external frameworks.
-go run receipt-processor.go gin   # For the implementation using the Gin framework.
+./receipt-processor naive # For the basic implementation without external frameworks.
+./receipt-processor gin   # For the implementation using the Gin framework.
+# .\receipt-processor.exe gin # For Windows.
 ```
 
 ## API Endpoints
