@@ -10,3 +10,22 @@ Content-Type: application/json
         {"shortDescription": "Pepsi - 12-oz", "price": "1.25"}
     ]
 }
+###
+
+POST http://127.0.0.1:8080/receipts/process
+Content-Type: application/json
+
+{
+    "retailer": "Walgreens",
+    "purchaseDate": "2022-01-02",
+    "purchaseTime": "08:13",
+    "total": "2.65",
+    "items": [
+        {"shortDescription": "Pepsi - 12-oz", "price": "1.25"},
+        {"shortDescription": "Dasani", "price": "1.40"}
+    ]
+}
+
+
+###
+GET http://127.0.0.1:8080/receipts/667a-4a8b-96f4-84fb6fb71288/points

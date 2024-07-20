@@ -2,7 +2,9 @@ package main
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
+	"strings"
 	"sync"
 
 	"github.com/google/uuid"
@@ -47,7 +49,12 @@ func naiveGetPoints(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	id := r.URL.Path[len("/receipts/"):]
+	id, err := getIDFromPath(r.URL.Path)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusBadRequest)
+		return
+	}
+
 	lock.Lock()
 	points, exists := db[id]
 	lock.Unlock()
@@ -59,4 +66,18 @@ func naiveGetPoints(w http.ResponseWriter, r *http.Request) {
 
 	response := map[string]int{"points": points}
 	json.NewEncoder(w).Encode(response)
+}
+
+func getIDFromPath(path string) (string, error) {
+	// Trim the prefix and split the rest by '/'
+	trimmed := strings.TrimPrefix(path, "/receipts/")
+	parts := strings.Split(trimmed, "/")
+	if len(parts) < 2 {
+		return "", fmt.Errorf("path does not contain an ID and action")
+	}
+	// The ID should be the first part, and "points" should be the second part
+	if parts[1] != "points" {
+		return "", fmt.Errorf("invalid action: expected 'points', got %s", parts[1])
+	}
+	return parts[0], nil
 }
