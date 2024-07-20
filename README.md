@@ -20,7 +20,7 @@ This project provides a web service for processing receipts and calculating poin
 To get the project up and running on your local machine for development and testing purposes, follow these steps:
 
 ```bash
-git clone https://github.com/yourgithub/receipt-processor.git
+git clone https://github.com/evany413/receipt-processor.git
 cd receipt-processor
 ```
 
