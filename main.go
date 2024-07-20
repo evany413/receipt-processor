@@ -1,4 +1,5 @@
 // go run main.go gin
+// go run main.go naive
 
 package main
 

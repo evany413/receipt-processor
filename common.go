@@ -30,7 +30,9 @@ func calculatePoints(receipt Receipt) int {
 	// 4. 5 points for every two items on the receipt
 	points += (len(receipt.Items) / 2) * 5
 
-	// 5. Points for item descriptions and prices
+	// 5. If the trimmed length of the item description is a multiple of 3,
+	// multiply the price by 0.2 and round up to the nearest integer.
+	// The result is the number of points earned.
 	for _, item := range receipt.Items {
 		trimmedDesc := strings.TrimSpace(item.ShortDescription)
 		if len(trimmedDesc)%3 == 0 {

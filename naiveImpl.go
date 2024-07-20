@@ -8,10 +8,7 @@ import (
 	"github.com/google/uuid"
 )
 
-var (
-	naiveReceipts = make(map[string]int)
-	naiveLock     sync.Mutex
-)
+var lock sync.Mutex
 
 func RunNaiveImpl() {
 	http.HandleFunc("/receipts/process", naiveProcessReceipt)
@@ -36,9 +33,9 @@ func naiveProcessReceipt(w http.ResponseWriter, r *http.Request) {
 	id := uuid.NewString()
 	points := calculatePoints(receipt)
 
-	naiveLock.Lock()
-	naiveReceipts[id] = points
-	naiveLock.Unlock()
+	lock.Lock()
+	db[id] = points
+	lock.Unlock()
 
 	response := map[string]string{"id": id}
 	json.NewEncoder(w).Encode(response)
@@ -51,9 +48,9 @@ func naiveGetPoints(w http.ResponseWriter, r *http.Request) {
 	}
 
 	id := r.URL.Path[len("/receipts/"):]
-	naiveLock.Lock()
-	points, exists := naiveReceipts[id]
-	naiveLock.Unlock()
+	lock.Lock()
+	points, exists := db[id]
+	lock.Unlock()
 
 	if !exists {
 		http.NotFound(w, r)
